@@ -10,6 +10,8 @@
 
 # production
 /build
+kaia-dashboard/dist
+kaia-dashboard/node_modules
 
 # misc
 .DS_Store
