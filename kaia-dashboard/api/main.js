@@ -19,7 +19,7 @@ var querystring = require("querystring");
 app.get("/login", function (req, res) {
   var state = Math.random() * 100000;
   var scope =
-    "user-read-private user-read-email playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative";
+    "user-read-private user-read-email playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative user-read-currently-playing user-read-playback-state";
   const url =
     "https://accounts.spotify.com/authorize?" +
     querystring.stringify({

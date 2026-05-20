@@ -49,3 +49,5 @@ export interface NowPlaying {
   duration: number;
   isPlaying: boolean;
 }
+
+

@@ -1,4 +1,3 @@
-import { NowPlayingBar } from "@/components/dashboard/NowPlayingBar";
 import { PomodoroCard } from "@/components/dashboard/PomodoroCard";
 import { RitualsCard } from "@/components/dashboard/RitualsCard";
 import { WeatherWidget } from "@/components/dashboard/WeatherWidget";
@@ -10,7 +9,6 @@ export function DashboardPage() {
   return (
     <div className="flex flex-col gap-8">
       <section className="flex flex-col gap-6">
-        <NowPlayingBar />
         <PomodoroCard />
       </section>
 
