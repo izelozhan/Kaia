@@ -11,6 +11,7 @@ import type {
   Task,
 } from "@/types";
 import { todayKey } from "@/lib/utils";
+import { fetchRandomQuote } from "@/lib/quotable";
 
 const defaultTasks: Task[] = [
   {
@@ -68,9 +69,9 @@ const defaultLinks: LinkItem[] = [
 ];
 
 const defaultQuote: QuoteState = {
-  text: "The sun himself is weak when he first rises; and gathers strength and courage as the day gets on.",
-  author: "Charles Dickens",
-  dateKey: todayKey(),
+  text: "",
+  author: "",
+  dateKey: "",
 };
 
 const defaultNowPlaying: NowPlaying = {
@@ -86,6 +87,8 @@ interface AppState {
   notes: Note[];
   links: LinkItem[];
   quote: QuoteState;
+  quoteLoading: boolean;
+  quoteError: string | null;
   pomodoro: PomodoroState;
   nowPlaying: NowPlaying;
   addTask: (title: string, priority?: Priority) => void;
@@ -94,7 +97,7 @@ interface AppState {
   addNote: (title: string, body: string, color: Note["color"]) => void;
   toggleNotePin: (id: string) => void;
   addLink: (title: string, url: string) => void;
-  setQuote: (text: string, author: string) => void;
+  fetchQuote: () => Promise<void>;
   setPomodoroSettings: (focusMinutes: number, breakMinutes: number) => void;
   startPomodoro: () => void;
   pausePomodoro: () => void;
@@ -119,6 +122,8 @@ export const useAppStore = create<AppState>()(
       notes: defaultNotes,
       links: defaultLinks,
       quote: defaultQuote,
+      quoteLoading: false,
+      quoteError: null,
       pomodoro: initialPomodoro,
       nowPlaying: defaultNowPlaying,
 
@@ -169,8 +174,21 @@ export const useAppStore = create<AppState>()(
           ],
         })),
 
-      setQuote: (text, author) =>
-        set({ quote: { text, author, dateKey: todayKey() } }),
+      fetchQuote: async () => {
+        set({ quoteLoading: true, quoteError: null });
+        try {
+          const result = await fetchRandomQuote();
+          set({
+            quote: { text: result.content, author: result.author, dateKey: todayKey() },
+            quoteLoading: false,
+          });
+        } catch (err) {
+          set({
+            quoteError: err instanceof Error ? err.message : "Failed to fetch quote",
+            quoteLoading: false,
+          });
+        }
+      },
 
       setPomodoroSettings: (focusMinutes, breakMinutes) =>
         set((s) => ({
@@ -257,6 +275,17 @@ export const useAppStore = create<AppState>()(
       setNowPlaying: (partial) =>
         set((s) => ({ nowPlaying: { ...s.nowPlaying, ...partial } })),
     }),
-    { name: "kaia-storage" }
+    {
+      name: "kaia-storage",
+      // quoteLoading and quoteError are transient — don't save them to localStorage
+      partialize: (s) => ({
+        tasks: s.tasks,
+        notes: s.notes,
+        links: s.links,
+        quote: s.quote,
+        pomodoro: s.pomodoro,
+        nowPlaying: s.nowPlaying,
+      }),
+    }
   )
 );
