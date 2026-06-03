@@ -5,14 +5,14 @@ import { useSpotifyUser } from "@/hooks/useSpotifyUser";
 import { useNowPlaying } from "@/hooks/useNowPlaying";
 import { useSpotifyPlaylists, type Playlist } from "@/hooks/useSpotifyPlaylists";
 
-function getToken() {
-  return localStorage.getItem("spotify_token");
-}
+let _sessionToken: string | null = null;
+
+function setSessionToken(t: string) { _sessionToken = t; }
 
 async function playTrack(uri: string) {
   await fetch("https://api.spotify.com/v1/me/player/play", {
     method: "PUT",
-    headers: { Authorization: `Bearer ${getToken()}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${_sessionToken}`, "Content-Type": "application/json" },
     body: JSON.stringify({ uris: [uri] }),
   });
 }
@@ -20,7 +20,7 @@ async function playTrack(uri: string) {
 async function playPlaylist(contextUri: string) {
   await fetch("https://api.spotify.com/v1/me/player/play", {
     method: "PUT",
-    headers: { Authorization: `Bearer ${getToken()}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${_sessionToken}`, "Content-Type": "application/json" },
     body: JSON.stringify({ context_uri: contextUri }),
   });
 }
@@ -31,21 +31,21 @@ async function togglePlayback(isPlaying: boolean) {
     : "https://api.spotify.com/v1/me/player/play";
   await fetch(endpoint, {
     method: "PUT",
-    headers: { Authorization: `Bearer ${getToken()}` },
+    headers: { Authorization: `Bearer ${_sessionToken}` },
   });
 }
 
 async function skipNext() {
   await fetch("https://api.spotify.com/v1/me/player/next", {
     method: "POST",
-    headers: { Authorization: `Bearer ${getToken()}` },
+    headers: { Authorization: `Bearer ${_sessionToken}` },
   });
 }
 
 async function skipPrevious() {
   await fetch("https://api.spotify.com/v1/me/player/previous", {
     method: "POST",
-    headers: { Authorization: `Bearer ${getToken()}` },
+    headers: { Authorization: `Bearer ${_sessionToken}` },
   });
 }
 
@@ -78,9 +78,9 @@ function ConnectView({ onLogin }: { onLogin: () => void }) {
 }
 
 function SpotifyView({ token }: { token: string }) {
-  const { user } = useSpotifyUser();
-  const { nowPlaying } = useNowPlaying();
-  const { playlists, loading } = useSpotifyPlaylists();
+  const { user } = useSpotifyUser(token);
+  const { nowPlaying } = useNowPlaying(token);
+  const { playlists, loading } = useSpotifyPlaylists(token);
 
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<Track[]>([]);
@@ -367,6 +367,8 @@ function SpotifyView({ token }: { token: string }) {
 
 export function SpotifySidebar() {
   const { token, login } = useSpotifyAuth();
+
+  if (token) setSessionToken(token);
 
   return (
     <aside className="flex w-64 shrink-0 flex-col border-r border-border bg-surface overflow-hidden" style={{ height: "calc(100vh - 80px)" }}>

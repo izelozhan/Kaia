@@ -9,11 +9,10 @@ export interface NowPlayingData {
   duration: number;
 }
 
-export function useNowPlaying() {
+export function useNowPlaying(token: string | null) {
   const [nowPlaying, setNowPlaying] = useState<NowPlayingData | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("spotify_token");
     if (!token) return;
 
     async function fetchNowPlaying() {
@@ -40,7 +39,7 @@ export function useNowPlaying() {
     fetchNowPlaying();
     const interval = setInterval(fetchNowPlaying, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [token]);
 
   return { nowPlaying };
 }

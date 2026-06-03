@@ -5,11 +5,10 @@ export interface SpotifyUser {
   imageUrl: string | null;
 }
 
-export function useSpotifyUser() {
+export function useSpotifyUser(token: string | null) {
   const [user, setUser] = useState<SpotifyUser | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("spotify_token");
     if (!token) return;
 
     fetch("https://api.spotify.com/v1/me", {
@@ -22,7 +21,7 @@ export function useSpotifyUser() {
           imageUrl: data.images?.[0]?.url ?? null,
         });
       });
-  }, []);
+  }, [token]);
 
   return { user };
 }

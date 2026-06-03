@@ -8,12 +8,11 @@ export interface Playlist {
   uri: string;
 }
 
-export function useSpotifyPlaylists() {
+export function useSpotifyPlaylists(token: string | null) {
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("spotify_token");
     if (!token) return;
 
     async function fetchAll() {
@@ -51,7 +50,7 @@ export function useSpotifyPlaylists() {
     }
 
     fetchAll();
-  }, []);
+  }, [token]);
 
   return { playlists, loading };
 }

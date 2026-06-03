@@ -48,12 +48,8 @@ export function useSpotifyAuth(){
       .then((res) => res.json())
       .then((data) => {
         setToken(data.access_token);
-        localStorage.setItem("spotify_token", data.access_token);
-        window.history.replaceState({}, "", "/"); //clean ?code= from URL
+        window.history.replaceState({}, "", "/");
       });
-    } else {
-      const saved = localStorage.getItem("spotify_token");
-      if(saved) setToken(saved);
     }
   }, []);
 
