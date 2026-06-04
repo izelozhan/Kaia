@@ -69,7 +69,7 @@ function ConnectView({ onLogin }: { onLogin: () => void }) {
       </div>
       <button
         onClick={onLogin}
-        className="rounded-full bg-accent-gold px-6 py-2 text-sm font-semibold text-accent-goldDark hover:opacity-90 transition-opacity"
+        className="rounded-full bg-accent-gold px-6 py-2 text-sm font-semibold text-white hover:opacity-90 transition-opacity"
       >
         Connect
       </button>
@@ -264,7 +264,7 @@ function SpotifyView({ token }: { token: string }) {
               </button>
               <button
                 onClick={() => togglePlayback(nowPlaying.isPlaying)}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-gold text-accent-goldDark"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-gold text-white"
               >
                 {nowPlaying.isPlaying
                   ? <Pause className="h-3.5 w-3.5 fill-current" />

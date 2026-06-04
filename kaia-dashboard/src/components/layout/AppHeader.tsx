@@ -11,13 +11,13 @@ const navItems = [
 
 export function AppHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-header shadow-[0_4px_20px_rgba(115,92,0,0.12)]">
+    <header className="sticky top-0 z-50 border-b border-border bg-header shadow-[0_4px_20px_rgba(139,26,26,0.08)]">
       <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-10">
-        <NavLink to="/" className="text-3xl font-semibold text-accent-goldDark">
+        <NavLink to="/" className="font-logo text-3xl italic text-accent-goldDark">
           Kaia
         </NavLink>
 
-        <nav className="flex items-center gap-8">
+        <nav className="flex items-center gap-2">
           {navItems.map(({ to, label, ...rest }) => (
             <NavLink
               key={to}
@@ -25,9 +25,9 @@ export function AppHeader() {
               {...rest}
               className={({ isActive }) =>
                 cn(
-                  "text-sm font-medium transition-colors",
+                  "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
                   isActive
-                    ? "border-b-2 border-accent-goldDark pb-0.5 text-accent-goldDark"
+                    ? "bg-accent-gold text-white"
                     : "text-muted hover:text-foreground"
                 )
               }

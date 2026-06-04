@@ -33,14 +33,14 @@ export function PomodoroCard() {
         <button
           type="button"
           onClick={isActive ? pausePomodoro : startPomodoro}
-          className="rounded-full bg-accent-gold px-8 py-3 text-sm font-medium text-accent-goldDark shadow-[0_4px_15px_rgba(115,92,0,0.2)]"
+          className="rounded-full bg-accent-gold px-8 py-3 text-sm font-medium text-white shadow-[0_4px_15px_rgba(139,26,26,0.25)]"
         >
           {isActive ? "Pause" : "Start Session"}
         </button>
         <button
           type="button"
           onClick={resetPomodoro}
-          className="rounded-full border-2 border-accent-teal px-8 py-3 text-sm font-medium text-accent-teal"
+          className="rounded-full border-2 border-accent-gold px-8 py-3 text-sm font-medium text-accent-gold"
         >
           Reset
         </button>

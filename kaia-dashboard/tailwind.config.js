@@ -4,16 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#FCF9F2",
+        background: "#FFF0EE",
         surface: "#FFFFFF",
-        header: "#F6F3EC",
+        header: "#FFF0EE",
         foreground: "#1C1C18",
-        muted: "#4D4636",
-        border: "#E5E2DB",
+        muted: "#6B5050",
+        border: "#F0D8D8",
         accent: {
-          gold: "#FFD966",
-          goldDark: "#735C00",
-          teal: "#006491",
+          gold: "#8B1A1A",
+          goldDark: "#8B1A1A",
+          teal: "#B83030",
           rose: "#8B4B58",
         },
         note: {
@@ -25,10 +25,10 @@ export default {
         card: "12px",
       },
       boxShadow: {
-        card: "0 4px 20px rgba(0, 100, 145, 0.08)",
-        pomodoro: "0 12px 32px rgba(115, 92, 0, 0.12)",
-        rituals: "0 8px 24px rgba(139, 75, 88, 0.08)",
-        weather: "0 8px 24px rgba(0, 100, 145, 0.1)",
+        card: "0 4px 20px rgba(139, 26, 26, 0.06)",
+        pomodoro: "0 12px 32px rgba(139, 26, 26, 0.12)",
+        rituals: "0 8px 24px rgba(139, 26, 26, 0.08)",
+        weather: "0 8px 24px rgba(139, 26, 26, 0.15)",
       },
       fontFamily: {
         sans: [
@@ -38,6 +38,7 @@ export default {
           "Roboto",
           "sans-serif",
         ],
+        logo: ["Playfair Display", "Georgia", "serif"],
       },
     },
   },

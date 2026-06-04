@@ -14,8 +14,8 @@ export function QuoteCard() {
 
   return (
     <section className="relative overflow-hidden rounded-card border border-border bg-surface p-8 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
-      <div className="pointer-events-none absolute -left-4 -top-4 h-24 w-24 rounded-full bg-accent-gold/20 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-24 w-24 rounded-full bg-sky-300/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-4 -top-4 h-24 w-24 rounded-full bg-accent-gold/15 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-24 w-24 rounded-full bg-accent-gold/10 blur-3xl" />
 
       <div className="relative flex flex-col items-center text-center">
         <Quote className="mb-4 h-9 w-9 text-accent-goldDark/80" />
